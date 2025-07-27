@@ -1,2 +1,11 @@
-.idea/
+.idea
+
+# local env files
+env
+.env
+__pycache__
+
+# macOS
+.DS_Store
+*.pem
 
