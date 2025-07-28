@@ -7,6 +7,7 @@ from typing import List
 
 from dotenv import load_dotenv
 from langchain.callbacks import AsyncIteratorCallbackHandler
+from openai import OpenAI
 from langchain_community.chat_models.openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, AIMessage
 from v1.openai.schemas import MessageOpenAi, StreamRequestOpenAi
@@ -87,3 +88,9 @@ async def send_message(body: StreamRequestOpenAi) -> AsyncIterable[str]:
 
     # Send the final message to indicate that the streaming is over
     yield "data: [DONE]\n\n"
+
+def generate_embeddings(text_chunks):
+    openai = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    embedding_response = [openai.embeddings.create(input=[chunk], model="text-embedding-3-small").data[0].embedding for chunk in
+            text_chunks]
+    return embedding_response

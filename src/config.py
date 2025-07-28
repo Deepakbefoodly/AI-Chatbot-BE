@@ -2,6 +2,7 @@ from typing import Any
 
 from pydantic_settings import BaseSettings
 
+CHROMA_COLLECTION_NAME = "gitlab_docs"
 
 class Config(BaseSettings):
 

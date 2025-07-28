@@ -11,3 +11,7 @@ langchain-community==0.0.38
 langsmith==0.1.17
 tenacity==8.2.3
 pydantic~=2.11.7
+chromadb
+nltk
+requests
+tqdm
