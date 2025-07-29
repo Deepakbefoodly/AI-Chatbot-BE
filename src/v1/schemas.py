@@ -1,4 +1,4 @@
-from typing import Literal, List
+from typing import Literal, List, Union
 
 from pydantic import BaseModel
 
@@ -11,7 +11,17 @@ class StreamRequestOpenAi(BaseModel):
     model: Literal["gpt-4", "gpt-3.5-turbo", "gpt-4o-mini"]
     temp: float
 
+class StreamRequestGemini(BaseModel):
+    user_prompt: str
+    system_prompt: str
+    model: Literal["gemini-1.5-pro"]
+    temp: float
+
 class QuestionRequestGenAI(BaseModel):
     question: str
-    model: Literal["gpt-4", "gpt-3.5-turbo", "gpt-4o-mini"]
+    llm: Literal["openai", "gemini"]
+    model: Literal["gpt-4", "gpt-3.5-turbo", "gpt-4o-mini", "gemini-1.5-pro"]
     temp: float
+
+class ResponseBody(BaseModel):
+    answer: str

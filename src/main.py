@@ -1,11 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum
 from config import app_configs, settings
 from v1 import router as api_v1_router
 
 app = FastAPI(**app_configs)
-handler = Mangum(app)
 
 app.add_middleware(
     CORSMiddleware,

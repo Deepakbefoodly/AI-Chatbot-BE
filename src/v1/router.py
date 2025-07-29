@@ -1,13 +1,12 @@
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import StreamingResponse
 
-from openai_utils.schemas import QuestionRequestGenAI
+from v1.schemas import QuestionRequestGenAI, ResponseBody
 import guardrails, rag_pipeline
 
-router = APIRouter(prefix="/ai", tags=["ai"])
+router = APIRouter(prefix="/v1")
 
 @router.post("/chat")
-def stream(body: QuestionRequestGenAI):
+def stream(body: QuestionRequestGenAI) -> ResponseBody:
     question = body.question
     is_valid, reason = guardrails.is_valid_input(question)
 
@@ -24,4 +23,4 @@ def stream(body: QuestionRequestGenAI):
     if not is_valid_out:
         raise HTTPException(status_code=400, detail=f"Unsafe output: {reason_out}")
 
-    return StreamingResponse(response, media_type="text/event-stream")
+    return ResponseBody(answer=response)

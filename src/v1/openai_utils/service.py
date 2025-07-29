@@ -2,7 +2,7 @@ import config
 import time
 
 from openai import OpenAI, AsyncOpenAI, RateLimitError
-from v1.openai_utils.schemas import MessageOpenAi, StreamRequestOpenAi
+from v1.schemas import MessageOpenAi, StreamRequestOpenAi
 
 client = OpenAI(api_key=config.OPENAI_API_KEY)
 asyncClient = AsyncOpenAI(api_key=config.OPENAI_API_KEY)
@@ -10,9 +10,9 @@ asyncClient = AsyncOpenAI(api_key=config.OPENAI_API_KEY)
 batch_size: int = 5
 delay: float = 1.0
 
-def create_openai_message(related_content: str, user_question: str) -> MessageOpenAi:
+def create_prompt_message(related_content: str, user_question: str) -> MessageOpenAi:
     context = "\n\n".join(related_content)
-    prompt = f"Context:\n{context}\n\nQuestion: {user_question}\n\nAnswer:"
+    prompt = f"Context:\n{context}\n\nQuestion: {user_question}"
 
     user_message = MessageOpenAi(
         role="user",
@@ -21,7 +21,7 @@ def create_openai_message(related_content: str, user_question: str) -> MessageOp
 
     return user_message
 
-async def send_message(body: StreamRequestOpenAi) -> str:
+async def openai_message(body: StreamRequestOpenAi) -> str:
 
     # Convert custom Pydantic message objects to dicts
     messages = [{"role": msg.role, "content": msg.content} for msg in body.messages]
