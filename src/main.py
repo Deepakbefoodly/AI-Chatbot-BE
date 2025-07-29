@@ -16,8 +16,6 @@ app.add_middleware(
 )
 
 app.include_router(api_v1_router.router)
-app = FastAPI()
-
 
 @app.get("/")
 async def root():

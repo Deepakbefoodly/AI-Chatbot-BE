@@ -1,19 +1,35 @@
 import requests, re
 import vector_store
+import nltk
 
-from openai.service import generate_embeddings
+# from openai_utils.service import generate_embeddings
+from gemini_utils.service import generate_embeddings
 from nltk.tokenize import sent_tokenize
+from bs4 import BeautifulSoup
 
 def fetch_gitlab_docs():
     urls = [
-        "https://about.gitlab.com/handbook/engineering/",
-        "https://about.gitlab.com/direction/"
+        "https://about.gitlab.com/direction/",
+
     ]
     texts = []
     for url in urls:
-        html = requests.get(url).text
-        clean_text = re.sub("<[^<]+?>", "", html)  # Strip HTML tags
-        texts.append(clean_text)
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Remove script and style elements
+        for script in soup(["script", "style"]):
+            script.decompose()
+
+        # Extract text content
+        text = soup.get_text()
+
+        # Clean up text
+        lines = (line.strip() for line in text.splitlines())
+        clean_text = '\n'.join(line for line in lines if line)
+
+        texts.append(clean_text.strip())
+
     return texts
 
 def chunk_text(text, chunk_size=500):
@@ -30,6 +46,7 @@ def chunk_text(text, chunk_size=500):
     return chunks
 
 def ingest():
+    nltk.download("punkt_tab")
     docs = fetch_gitlab_docs()
     all_chunks = []
     for doc in docs:

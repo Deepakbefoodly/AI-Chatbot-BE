@@ -1,9 +1,7 @@
-import chromadb
-from chromadb.config import Settings
-import config
+from chroma_db.chroma_connection import get_chroma_collection
 
-client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="./chroma_db"))
-collection = client.get_or_create_collection(config.CHROMA_COLLECTION_NAME)
+
+collection = get_chroma_collection()
 
 def add_documents(chunks: list[str], embeddings: list[list[float]]):
     ids = [f"doc_{i}" for i in range(len(chunks))]
