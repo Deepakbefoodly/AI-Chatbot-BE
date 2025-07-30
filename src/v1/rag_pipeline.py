@@ -1,10 +1,10 @@
-from config import openai_system_config
+from src.config import openai_system_config
 
 # from openai_utils.service import embed_text
-from openai_utils.service import create_prompt_message, openai_message
-from gemini_utils.service import embed_text, gemini_message
-from vector_store import query_similar_docs
-from v1.schemas import QuestionRequestGenAI, MessageOpenAi, StreamRequestOpenAi, StreamRequestGemini
+from src.v1.openai_utils.service import create_prompt_message, openai_message
+from src.v1.gemini_utils.service import embed_text, gemini_message
+from src.v1.vector_store import query_similar_docs
+from src.v1.schemas import QuestionRequestGenAI, MessageOpenAi, StreamRequestOpenAi, StreamRequestGemini
 
 def run_rag_pipeline(body: QuestionRequestGenAI):
     embedding = embed_text(body.question)

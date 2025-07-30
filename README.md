@@ -19,6 +19,6 @@ There are two methods to set up the backend:
    - On Windows: `env\Scripts\activate`.
 3. Install the required dependencies by running `pip install -r requirements.txt`.
 4. Add your `OPENAI_API_KEY` to the `.env` file.
-5. add environment variable while running the script `PYTHONPATH=src` and run `start-server.sh`
+5. run `start-server.sh`
 6. Or Start the FastAPI backend app with `uvicorn --reload --proxy-headers --host 0.0.0.0 --port 8000 src.main:app`.
    - Note: If you encounter a `ModuleNotFoundError`, ensure that the virtual environment is activated.

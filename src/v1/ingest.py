@@ -1,13 +1,12 @@
 import requests, re
-import vector_store
+from src.v1.vector_store import add_documents
 import nltk
 
 # from openai_utils.service import generate_embeddings
-from gemini_utils.service import generate_embeddings
+from src.v1.gemini_utils.service import generate_embeddings
 from nltk.tokenize import sent_tokenize
 from bs4 import BeautifulSoup
-from chroma_db import data_scraper
-from v1.chroma_db.data_scraper import get_byte_size, split_text_by_bytes
+from src.v1.chroma_db.data_scraper import get_child_urls, get_byte_size, split_text_by_bytes
 
 MAX_BYTES = 16000
 
@@ -16,7 +15,7 @@ def fetch_gitlab_docs():
         "https://handbook.gitlab.com/"
     ]
 
-    child_urls = data_scraper.get_child_urls(parent_urls)
+    child_urls = get_child_urls(parent_urls)
 
     texts = []
     for url in child_urls:
@@ -70,7 +69,7 @@ def ingest():
         all_chunks.extend(chunk_text(doc))
 
     embeddings = generate_embeddings(all_chunks)
-    vector_store.add_documents(all_chunks, embeddings)
+    add_documents(all_chunks, embeddings)
 
 if __name__ == "__main__":
     ingest()

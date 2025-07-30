@@ -1,9 +1,9 @@
 import google.generativeai as genai
 import time
-import config
-from v1.schemas import StreamRequestGemini
+from src.config import GEMINI_API_KEY
+from src.v1.schemas import StreamRequestGemini
 
-genai.configure(api_key=config.GEMINI_API_KEY)
+genai.configure(api_key=GEMINI_API_KEY)
 
 batch_size: int = 50
 delay: float = 1.0

@@ -1,6 +1,6 @@
 import uuid
 
-from chroma_db.chroma_connection import get_chroma_collection
+from src.v1.chroma_db.chroma_connection import get_chroma_collection
 
 collection = get_chroma_collection()
 

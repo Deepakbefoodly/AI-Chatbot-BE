@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
-from v1.schemas import QuestionRequestGenAI, ResponseBody
-import guardrails, rag_pipeline
+from src.v1.schemas import QuestionRequestGenAI, ResponseBody
+import src.v1.guardrails as guardrails, src.v1.rag_pipeline as rag_pipeline
 
 router = APIRouter(prefix="/v1")
 

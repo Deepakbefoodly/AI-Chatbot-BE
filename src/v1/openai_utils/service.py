@@ -1,11 +1,11 @@
-import config
+from src.config import OPENAI_API_KEY
 import time
 
 from openai import OpenAI, AsyncOpenAI, RateLimitError
-from v1.schemas import MessageOpenAi, StreamRequestOpenAi
+from src.v1.schemas import MessageOpenAi, StreamRequestOpenAi
 
-client = OpenAI(api_key=config.OPENAI_API_KEY)
-asyncClient = AsyncOpenAI(api_key=config.OPENAI_API_KEY)
+client = OpenAI(api_key=OPENAI_API_KEY)
+asyncClient = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
 batch_size: int = 5
 delay: float = 1.0

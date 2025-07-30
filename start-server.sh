@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-set
+set -e
 exec uvicorn --reload --proxy-headers  --host 0.0.0.0 --port 8000 src.main:app

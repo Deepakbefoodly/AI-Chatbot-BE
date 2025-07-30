@@ -10,13 +10,13 @@ ENV PYTHONPATH=/app
 WORKDIR /app
 
 # Copy application code
-COPY . .
+COPY . /app
 
 # Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Set environment variables
+## Set environment variables
 ENV PYTHONPATH=/app/src
 
 # Expose the port FastAPI runs on
