@@ -1,11 +1,18 @@
-from chroma_db.chroma_connection import get_chroma_collection
+import uuid
 
+from chroma_db.chroma_connection import get_chroma_collection
 
 collection = get_chroma_collection()
 
+batch_size = 300
+
 def add_documents(chunks: list[str], embeddings: list[list[float]]):
-    ids = [f"doc_{i}" for i in range(len(chunks))]
-    collection.add(documents=chunks, embeddings=embeddings, ids=ids)
+    for i in range(0, len(chunks), batch_size):
+        batch_chunks = chunks[i:i + batch_size]
+        batch_embeddings = embeddings[i:i + batch_size]
+        batch_ids = [str(uuid.uuid4()) for _ in batch_chunks]
+
+        collection.add(documents=batch_chunks, embeddings=batch_embeddings, ids=batch_ids)
 
 def query_similar_docs(query_embedding: list[float], k: int = 3):
     results = collection.query(query_embeddings=[query_embedding], n_results=k)
