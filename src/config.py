@@ -24,4 +24,4 @@ app_configs: dict[str, Any] = {
     "swagger_ui_parameters": {"displayRequestDuration": True},
 }
 
-openai_system_config: str = "You are a helpful assistant answering questions based on GitLab Handbook and Direction pages."
+openai_system_config: str = "You are a helpful assistant answering questions based on GitLab Handbook and Direction pages. Data is available in chroma db"

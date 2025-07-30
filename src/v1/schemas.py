@@ -13,7 +13,6 @@ class StreamRequestOpenAi(BaseModel):
 
 class StreamRequestGemini(BaseModel):
     user_prompt: str
-    system_prompt: str
     model: Literal["gemini-1.5-pro"]
     temp: float
 

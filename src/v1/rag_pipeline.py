@@ -28,7 +28,6 @@ def run_rag_pipeline(body: QuestionRequestGenAI):
     else:
         llm_body = StreamRequestGemini(
             user_prompt=user_message.content,
-            system_prompt=system_message.content,
             model=body.model,
             temp=body.temp
         )

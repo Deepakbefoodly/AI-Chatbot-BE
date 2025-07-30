@@ -50,9 +50,7 @@ def gemini_message(body: StreamRequestGemini) -> str:
         })
 
     # Initialize Gemini chat model
-    chat = model.start_chat(history=[
-        {"role": "model", "parts": [body.system_prompt]}
-    ])
+    chat = model.start_chat()
 
     # Ask a new question
     response = chat.send_message(body.user_prompt)

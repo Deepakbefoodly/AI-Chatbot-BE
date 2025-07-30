@@ -12,7 +12,7 @@ MAX_BYTES = 16000
 
 def fetch_gitlab_docs():
     parent_urls = [
-        "https://handbook.gitlab.com/"
+        "https://handbook.gitlab.com/handbook"
     ]
 
     child_urls = get_child_urls(parent_urls)

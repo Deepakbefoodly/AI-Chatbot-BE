@@ -1,3 +1,5 @@
+from typing import List
+
 from src.config import OPENAI_API_KEY
 import time
 
@@ -10,13 +12,29 @@ asyncClient = AsyncOpenAI(api_key=OPENAI_API_KEY)
 batch_size: int = 5
 delay: float = 1.0
 
-def create_prompt_message(related_content: str, user_question: str) -> MessageOpenAi:
+def create_prompt_message(related_content: List[str], user_question: str) -> MessageOpenAi:
     context = "\n\n".join(related_content)
-    prompt = f"Context:\n{context}\n\nQuestion: {user_question}"
+    prompt = f"""
+        You are an expert AI assistant trained on the GitLab Handbook and Github Direction data set.
+        
+        Answer the user's question based **only on the context provided below**.
+        If the answer is not found in the context, reply with "I couldn't find that information in the provided data."
+        
+        ### CONTEXT:
+        {context}
+        
+        ### QUESTION:
+        {user_question}
+        
+        ### INSTRUCTIONS:
+        - Be concise and factual.
+        - Don’t hallucinate or make assumptions.
+        - If the context is not relevant, say so clearly.
+        """
 
     user_message = MessageOpenAi(
         role="user",
-        content=prompt
+        content=prompt.strip()
     )
 
     return user_message
