@@ -65,7 +65,7 @@ def ingest():
             smaller_docs.append(doc)
 
     all_chunks = []
-    for doc in docs:
+    for doc in smaller_docs:
         all_chunks.extend(chunk_text(doc))
 
     embeddings = generate_embeddings(all_chunks)
