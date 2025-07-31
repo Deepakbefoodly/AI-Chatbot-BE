@@ -15,7 +15,7 @@ def add_documents(chunks: list[str], embeddings: list[list[float]]):
         try:
             collection.add(documents=batch_chunks, embeddings=batch_embeddings, ids=batch_ids)
         except Exception as ex:
-            continue
+            raise ex
 
 def query_similar_docs(query_embedding: list[float], k: int = 5):
     results = collection.query(query_embeddings=[query_embedding], n_results=k)

@@ -44,8 +44,6 @@ def chunk_text(text, chunk_size=350):
         if len(chunk) + len(sent) < chunk_size:
             chunk += " " + sent
         else:
-            if get_byte_size(chunk) > MAX_BYTES:
-                print("sad")
             chunks.append(chunk.strip())
             chunk = sent
     if chunk:
