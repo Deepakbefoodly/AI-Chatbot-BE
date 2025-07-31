@@ -2,15 +2,32 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
-def get_all_links(base_url: str) -> set:
-    response = requests.get(base_url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    links = set()
-    for a in soup.find_all("a", href=True):
-        href = urljoin(base_url, a["href"])
-        if href.startswith(base_url):
-            links.add(href.split("#")[0])  # Remove anchor parts
-    return links
+def fetch_gitlab_docs():
+    parent_urls = [
+        "https://handbook.gitlab.com/handbook"
+    ]
+
+    child_urls = get_child_urls(parent_urls)
+
+    texts = []
+    for url in child_urls:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Remove script and style elements
+        for script in soup(["script", "style", 'header', 'nav', 'aside', '.sidebar', '.navbar', '#header', '#sidebar']):
+            script.decompose()
+
+        # Extract text content
+        text = soup.get_text()
+
+        # Clean up text
+        lines = (line.strip() for line in text.splitlines())
+        clean_text = '\n'.join(line for line in lines if line)
+
+        texts.append(clean_text.strip())
+
+    return texts
 
 def get_child_urls(parent_urls: list[str]) -> set:
     child_urls = set()
@@ -22,6 +39,16 @@ def get_child_urls(parent_urls: list[str]) -> set:
         child_urls.update(get_all_links(url))
 
     return child_urls
+
+def get_all_links(base_url: str) -> set:
+    response = requests.get(base_url)
+    soup = BeautifulSoup(response.text, "html.parser")
+    links = set()
+    for a in soup.find_all("a", href=True):
+        href = urljoin(base_url, a["href"])
+        if href.startswith(base_url):
+            links.add(href.split("#")[0])  # Remove anchor parts
+    return links
 
 def get_byte_size(text: str) -> int:
     return len(text.encode('utf-8'))
