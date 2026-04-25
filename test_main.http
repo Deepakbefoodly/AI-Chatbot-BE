@@ -14,8 +14,8 @@ POST http://127.0.0.1:8000/v1/chat
 Accept: application/json
 
 {
-    "question": "What is the GitLab engineering handbook?",
+    "question": "What is the Bridge Financing?",
     "llm": "gemini",
-    "model": "gemini-1.5-pro",
+    "model": "gemini-2.5-pro",
     "temp": 0.7
 }

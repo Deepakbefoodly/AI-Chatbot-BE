@@ -13,13 +13,13 @@ class StreamRequestOpenAi(BaseModel):
 
 class StreamRequestGemini(BaseModel):
     user_prompt: str
-    model: Literal["gemini-1.5-pro"]
+    model: Literal["gemini-2.0-flash", "gemini-2.5-flash"]
     temp: float
 
 class QuestionRequestGenAI(BaseModel):
     question: str
     llm: Literal["openai", "gemini"]
-    model: Literal["gpt-4", "gpt-3.5-turbo", "gpt-4o-mini", "gemini-1.5-pro"]
+    model: Literal["gpt-4", "gpt-3.5-turbo", "gpt-4o-mini", "gemini-2.0-flash", "gemini-2.5-flash"]
     temp: float
 
 class ResponseBody(BaseModel):

@@ -10,5 +10,6 @@ nltk~=3.9.1
 requests~=2.32.4
 tqdm
 beautifulsoup4~=4.13.4
-google-generativeai
+google-genai
 protobuf~=5.29.5
+PyPDF2~=3.0.1

@@ -15,10 +15,10 @@ delay: float = 1.0
 def create_prompt_message(related_content: List[str], user_question: str) -> MessageOpenAi:
     context = "\n\n".join(related_content)
     prompt = f"""
-        You are an expert AI assistant trained on the GitLab Handbook and Github Direction data set.
+        You are an expert AI assistant trained on the Finance knowledge data set.
         
         Answer the user's question based **only on the context provided below**.
-        If the answer is not found in the context, reply with "I couldn't find that information in the provided data."
+        If the answer is not found in the context, reply with "Bro!, I couldn't find that information in the data :(."
         
         ### CONTEXT:
         {context}

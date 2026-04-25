@@ -13,6 +13,8 @@ def get_chroma_client() -> ClientAPI:
 	global _client
 	if _client is None:
 		_client = chromadb.CloudClient(
+			cloud_port=443,
+			cloud_host=os.getenv("CHROMA_CLOUD_HOST"),
             api_key=os.getenv("CHROMA_API_KEY"),
             tenant=os.getenv("CHROMA_TENANT"),
             database=os.getenv("CHROMA_DATABASE")

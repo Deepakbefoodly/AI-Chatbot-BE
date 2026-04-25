@@ -4,11 +4,11 @@ from src.v1.chroma_db.chroma_connection import get_chroma_collection
 
 collection = get_chroma_collection()
 
-batch_size = 300
+batch_size = 200
 
 def add_documents(chunks: list[str], embeddings: list[list[float]]):
     for i in range(0, len(chunks), batch_size):
-        batch_chunks = chunks[i:i + batch_size]
+        batch_chunks = [c for c in chunks[i:i + batch_size] if c.strip()]
         batch_embeddings = embeddings[i:i + batch_size]
         batch_ids = [str(uuid.uuid4()) for _ in batch_chunks]
 

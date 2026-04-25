@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 
 def fetch_gitlab_docs():
     parent_urls = [
-        "https://handbook.gitlab.com/handbook"
+        "https://studyfinance.com/"
     ]
 
     child_urls = get_child_urls(parent_urls)
@@ -21,7 +21,7 @@ def fetch_gitlab_docs():
         # Extract text content
         text = soup.get_text()
 
-        # Clean up text
+        # Clean-up text
         lines = (line.strip() for line in text.splitlines())
         clean_text = '\n'.join(line for line in lines if line)
 
